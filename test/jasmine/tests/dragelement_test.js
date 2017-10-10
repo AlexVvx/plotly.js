@@ -148,6 +148,24 @@ describe('dragElement', function() {
 
         expect(mockObj.dummy).not.toHaveBeenCalled();
     });
+
+    it('should fire contextmenu event on element when option rightclick set to false', function() {
+        var options = { element: this.element, gd: this.gd };
+        options.gd._context = { rightClick: false };
+        dragElement.init(options);
+
+        var mockObj = {
+            handleContextMenu: function() {}
+        };
+        spyOn(mockObj, 'handleContextMenu');
+
+        this.element.oncontextmenu = mockObj.handleContextMenu;
+
+        mouseEvent('mousedown', this.x, this.y);
+        mouseEvent('contextmenu', this.x, this.y);
+
+        expect(mockObj.handleContextMenu).toHaveBeenCalled();
+    });
 });
 
 describe('dragElement.getCursor', function() {

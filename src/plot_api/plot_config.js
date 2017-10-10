@@ -62,6 +62,9 @@ module.exports = {
     // double click interaction (false, 'reset', 'autosize' or 'reset+autosize')
     doubleClick: 'reset+autosize',
 
+    // right click interaction, if false browser context menu won't be shown, syntetic contextmenu event instead
+    rightClick: true,
+
     // new users see some hints about interactivity
     showTips: true,
 
