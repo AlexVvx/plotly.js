@@ -77,6 +77,30 @@ dragElement.init = function init(options) {
     element.onmousedown = onStart;
     element.ontouchstart = onStart;
 
+    function onContextMenu(e) {
+        if(gd._context.rightClick) {
+            return;
+        }
+        var e2;
+        e.preventDefault();
+        try {
+            e2 = new MouseEvent('contextmenu', e);
+        }
+        catch(err) {
+            var offset = pointerOffset(e);
+            e2 = document.createEvent('MouseEvents');
+            e2.initMouseEvent('contextmenu',
+                e.bubbles, e.cancelable,
+                e.view, e.detail,
+                e.screenX, e.screenY,
+                offset[0], offset[1],
+                e.ctrlKey, e.altKey, e.shiftKey, e.metaKey,
+                e.button, initialTarget);
+        }
+        initialTarget.dispatchEvent(e2);
+        onDone(e);
+    }
+
     function onStart(e) {
         // make dragging and dragged into properties of gd
         // so that others can look at and modify them
@@ -111,6 +135,7 @@ dragElement.init = function init(options) {
             document.documentElement.style.cursor = window.getComputedStyle(element).cursor;
         }
 
+        document.addEventListener('contextmenu', onContextMenu);
         document.addEventListener('mousemove', onMove);
         document.addEventListener('mouseup', onDone);
         document.addEventListener('touchmove', onMove);
@@ -138,6 +163,7 @@ dragElement.init = function init(options) {
     }
 
     function onDone(e) {
+        document.removeEventListener('contextmenu', onContextMenu);
         document.removeEventListener('mousemove', onMove);
         document.removeEventListener('mouseup', onDone);
         document.removeEventListener('touchmove', onMove);
