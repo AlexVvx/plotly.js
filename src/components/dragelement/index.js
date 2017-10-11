@@ -80,6 +80,14 @@ dragElement.init = function init(options) {
     function onStart(e) {
         // make dragging and dragged into properties of gd
         // so that others can look at and modify them
+
+        var rightclick;
+        if(e.which) { rightclick = (e.which === 3); }
+        else if(e.button) { rightclick = (e.button === 2); }
+        if(rightclick) {
+            return;
+        }
+
         gd._dragged = false;
         gd._dragging = true;
         var offset = pointerOffset(e);
