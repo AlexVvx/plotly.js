@@ -1151,9 +1151,12 @@ plots.supplyLayoutGlobalDefaults = function(layoutIn, layoutOut) {
 
     var globalFont = Lib.coerceFont(coerce, 'font');
 
-    coerce('title', layoutOut._dfltTitle.plot);
+    coerce('title.text', layoutOut._dfltTitle.plot);
+    coerce('title.alignment');
+    coerce('title.x');
+    coerce('title.y');
 
-    Lib.coerceFont(coerce, 'titlefont', {
+    Lib.coerceFont(coerce, 'title.font', {
         family: globalFont.family,
         size: Math.round(globalFont.size * 1.4),
         color: globalFont.color

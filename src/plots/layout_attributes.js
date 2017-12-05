@@ -26,17 +26,50 @@ globalFont.color.dflt = colorAttrs.defaultLine;
 module.exports = {
     font: globalFont,
     title: {
-        valType: 'string',
-        role: 'info',
-        editType: 'layoutstyle',
-        description: [
-            'Sets the plot\'s title.'
-        ].join(' ')
+        text: {
+            valType: 'string',
+            role: 'info',
+            dflt: 'Click to enter Plot title',
+            editType: 'layoutstyle',
+            description: [
+                'Sets the plot\'s title.'
+            ].join(' ')
+        },
+        alignment: {
+            valType: 'string',
+            role: 'info',
+            dflt: 'middle',
+            editType: 'none',
+            description: [
+                'Sets the plot\'s title alignment'
+            ].join(' ')
+        },
+        x: {
+            valType: 'number',
+            role: 'info',
+            min: 0,
+            dflt: 0,
+            editType: 'none',
+            description: [
+                'Sets the plot\'s title x position (in px).'
+            ].join(' ')
+        },
+        y: {
+            valType: 'number',
+            role: 'info',
+            min: 0,
+            dflt: 0,
+            editType: 'none',
+            description: [
+                'Sets the plot\'s title y position (in px).'
+            ].join(' ')
+        },
+        font: fontAttrs({
+            editType: 'layoutstyle',
+            description: 'Sets the title font.'
+        }),
+        editType: 'none'
     },
-    titlefont: fontAttrs({
-        editType: 'layoutstyle',
-        description: 'Sets the title font.'
-    }),
     autosize: {
         valType: 'boolean',
         role: 'info',

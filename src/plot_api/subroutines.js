@@ -410,16 +410,64 @@ function findCounterAxisLineWidth(gd, ax, subplotCounterLineWidth,
 
 exports.drawMainTitle = function(gd) {
     var fullLayout = gd._fullLayout;
+    var titleAlignment = fullLayout.title.alignment;
+    var attributes;
+
+    switch(titleAlignment) {
+        case 'top':
+            attributes = {
+                x: fullLayout.width / 2,
+                y: fullLayout.title.font.size / 2,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'hanging'
+            };
+            break;
+        case 'bottom':
+            attributes = {
+                x: (fullLayout.width / 2),
+                y: fullLayout._size.t - (fullLayout.title.font.size / 2),
+                'text-anchor': 'middle',
+                'dominant-baseline': 'auto'
+            };
+            break;
+        case 'left':
+            attributes = {
+                x: fullLayout.title.font.size / 2,
+                y: fullLayout._size.t / 2,
+                'text-anchor': 'start',
+                'dominant-baseline': 'middle'
+            };
+            break;
+        case 'right':
+            attributes = {
+                x: fullLayout.width - (fullLayout.title.font.size / 2),
+                y: fullLayout._size.t / 2,
+                'text-anchor': 'end',
+                'dominant-baseline': 'middle'
+            };
+            break;
+        case 'medium':
+            attributes = {
+                x: fullLayout.width / 2,
+                y: fullLayout._size.t / 2,
+                'text-anchor': 'middle'
+            };
+            break;
+        default:
+            attributes = {
+                x: fullLayout.title.x,
+                y: fullLayout.title.y,
+                'text-anchor': 'start',
+                'dominant-baseline': 'hanging'
+            };
+    }
 
     Titles.draw(gd, 'gtitle', {
         propContainer: fullLayout,
-        propName: 'title',
+        propName: 'title.text',
+        dfltName: 'Plot',
         placeholder: fullLayout._dfltTitle.plot,
-        attributes: {
-            x: fullLayout.width / 2,
-            y: fullLayout._size.t / 2,
-            'text-anchor': 'middle'
-        }
+        attributes: attributes
     });
 };
 

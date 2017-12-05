@@ -25,7 +25,9 @@ function cloneLayoutOverride(tileClass) {
                 autosize: true,
                 width: 150,
                 height: 150,
-                title: '',
+                title: {
+                    text: ''
+                },
                 showlegend: false,
                 margin: {l: 5, r: 5, t: 5, b: 5, pad: 0},
                 annotations: []
@@ -34,7 +36,9 @@ function cloneLayoutOverride(tileClass) {
 
         case 'thumbnail':
             override = {
-                title: '',
+                title: {
+                    text: ''
+                },
                 hidesources: true,
                 showlegend: false,
                 borderwidth: 0,

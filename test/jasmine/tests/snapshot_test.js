@@ -35,7 +35,9 @@ describe('Plotly.Snapshot', function() {
 
         data = [dummyTrace1, dummyTrace2];
         layout = {
-            title: 'Chart Title',
+            title: {
+                text: 'Chart Title'
+            },
             showlegend: true,
             autosize: true,
             width: 688,
@@ -69,7 +71,9 @@ describe('Plotly.Snapshot', function() {
                 autosize: true,
                 width: 150,
                 height: 150,
-                title: '',
+                title: {
+                    text: ''
+                },
                 showlegend: false,
                 margin: {'l': 5, 'r': 5, 't': 5, 'b': 5, 'pad': 0},
                 annotations: []

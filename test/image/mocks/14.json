@@ -97,12 +97,15 @@
         }
     ], 
     "layout": {
-        "title": "Silicon Photovoltaics Learning Curve", 
-        "titlefont": {
-            "color": "", 
-            "family": "", 
-            "size": 0
-        }, 
+        "title": {
+            "text": "test",
+            "alignment": "left",
+            "font": {
+                "color": "",
+                "family": "",
+                "size": 0
+            }
+        },
         "font": {
             "family": "Arial, sans-serif", 
             "size": 12, 

@@ -63,18 +63,18 @@ Titles.draw = function(gd, titleClass, options) {
     var group = options.containerGroup;
 
     var fullLayout = gd._fullLayout;
-    var font = cont.titlefont.family;
-    var fontSize = cont.titlefont.size;
-    var fontColor = cont.titlefont.color;
+    var font = typeof cont.title.text !== 'undefined' ? cont.title.font.family : cont.titlefont.family;
+    var fontSize = typeof cont.title.text !== 'undefined' ? cont.title.font.size : cont.titlefont.size;
+    var fontColor = typeof cont.title.text !== 'undefined' ? cont.title.font.color : cont.titlefont.color;
 
     var opacity = 1;
     var isplaceholder = false;
-    var txt = cont.title.trim();
+    var txt = typeof cont.title.text !== 'undefined' ? cont.title.text.trim() : cont.title.trim();
 
     // only make this title editable if we positively identify its property
     // as one that has editing enabled.
     var editAttr;
-    if(prop === 'title') editAttr = 'titleText';
+    if(prop === 'title.text') editAttr = 'titleText';
     else if(prop.indexOf('axis') !== -1) editAttr = 'axisTitleText';
     else if(prop.indexOf('colorbar' !== -1)) editAttr = 'colorbarTitleText';
     var editable = gd._context.edits[editAttr];

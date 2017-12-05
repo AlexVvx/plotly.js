@@ -83,7 +83,9 @@ describe('editable titles', function() {
         Plotly.plot(gd, data, {
             xaxis: {title: ''},
             yaxis: {title: ''},
-            title: ''
+            title: {
+                text: ''
+            }
         }, {editable: true})
         .then(function() {
             return Promise.all([
@@ -99,7 +101,9 @@ describe('editable titles', function() {
         Plotly.plot(gd, data, {
             xaxis: {title: ''},
             yaxis: {title: ''},
-            title: ''
+            title: {
+                text: ''
+            }
         }, {editable: true})
         .then(function() {
             return editTitle('x', 'xaxis.title', 'XXX');
@@ -108,7 +112,7 @@ describe('editable titles', function() {
             return editTitle('y', 'yaxis.title', 'YYY');
         })
         .then(function() {
-            return editTitle('g', 'title', 'TTT');
+            return editTitle('g', 'title.text', 'TTT');
         })
         .then(function() {
             return Promise.all([
