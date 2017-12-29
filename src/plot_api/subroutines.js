@@ -22,6 +22,8 @@ var ModeBar = require('../components/modebar');
 var initInteractions = require('../plots/cartesian/graph_interact');
 var cartesianConstants = require('../plots/cartesian/constants');
 
+var anchorUtils = require('../components/legend/anchor_utils');
+
 exports.layoutStyles = function(gd) {
     return Lib.syncOrAsync([Plots.doAutoMargin, exports.lsInner], gd);
 };
@@ -410,56 +412,32 @@ function findCounterAxisLineWidth(gd, ax, subplotCounterLineWidth,
 
 exports.drawMainTitle = function(gd) {
     var fullLayout = gd._fullLayout;
-    var titleAlignment = fullLayout.title.alignment;
-    var attributes;
+    var title = fullLayout.title;
+    var gs = fullLayout._size;
 
-    switch(titleAlignment) {
-        case 'top':
-            attributes = {
-                x: fullLayout.width / 2,
-                y: fullLayout.title.font.size / 2,
-                'text-anchor': 'middle',
-                'dominant-baseline': 'hanging'
-            };
-            break;
-        case 'bottom':
-            attributes = {
-                x: (fullLayout.width / 2),
-                y: fullLayout._size.t - (fullLayout.title.font.size / 2),
-                'text-anchor': 'middle',
-                'dominant-baseline': 'auto'
-            };
-            break;
-        case 'left':
-            attributes = {
-                x: fullLayout.title.font.size / 2,
-                y: fullLayout._size.t / 2,
-                'text-anchor': 'start',
-                'dominant-baseline': 'middle'
-            };
-            break;
-        case 'right':
-            attributes = {
-                x: fullLayout.width - (fullLayout.title.font.size / 2),
-                y: fullLayout._size.t / 2,
-                'text-anchor': 'end',
-                'dominant-baseline': 'middle'
-            };
-            break;
-        case 'medium':
-            attributes = {
-                x: fullLayout.width / 2,
-                y: fullLayout._size.t / 2,
-                'text-anchor': 'middle'
-            };
-            break;
-        default:
-            attributes = {
-                x: fullLayout.title.x,
-                y: fullLayout.title.y,
-                'text-anchor': 'start',
-                'dominant-baseline': 'hanging'
-            };
+    var attributes = {
+        x: title.xref === 'paper' ? gs.l + gs.w * title.x : (gs.l + gs.w + gs.r) * title.x,
+        y: title.yref === 'paper' ? gs.t + gs.h * (1 - title.y) : (gs.t + gs.h + gs.b) * (1 - title.y),
+        'text-anchor': 'start'
+    };
+
+    if(anchorUtils.isRightAnchor(title)) {
+        attributes['text-anchor'] = 'end';
+        attributes.x -= title.xpad;
+    } else if(anchorUtils.isCenterAnchor(title)) {
+        attributes['text-anchor'] = 'middle';
+    } else {
+        attributes.x += title.xpad;
+    }
+
+    if(anchorUtils.isBottomAnchor(title)) {
+        attributes.y += title.yref === 'paper' ? title.font.size : 0;
+        attributes.y -= title.ypad;
+    } else if(anchorUtils.isMiddleAnchor(title)) {
+        attributes.y -= title.font.size / 2;
+    } else if(!anchorUtils.isBottomAnchor(title) && !anchorUtils.isMiddleAnchor(title)) {
+        attributes.y += title.yref === 'container' ? title.font.size : 0;
+        attributes.y += title.ypad;
     }
 
     Titles.draw(gd, 'gtitle', {

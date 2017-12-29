@@ -35,20 +35,11 @@ module.exports = {
                 'Sets the plot\'s title.'
             ].join(' ')
         },
-        alignment: {
-            valType: 'string',
-            role: 'info',
-            dflt: 'middle',
-            editType: 'none',
-            description: [
-                'Sets the plot\'s title alignment'
-            ].join(' ')
-        },
         x: {
             valType: 'number',
             role: 'info',
-            min: 0,
-            dflt: 0,
+            min: -2,
+            max: 3,
             editType: 'none',
             description: [
                 'Sets the plot\'s title x position (in px).'
@@ -57,17 +48,75 @@ module.exports = {
         y: {
             valType: 'number',
             role: 'info',
-            min: 0,
-            dflt: 0,
+            min: -2,
+            max: 3,
             editType: 'none',
             description: [
                 'Sets the plot\'s title y position (in px).'
+            ].join(' ')
+        },
+        xanchor: {
+            valType: 'string',
+            role: 'info',
+            dflt: 'center',
+            editType: 'none',
+            description: [
+                'Sets the plot\'s title x anchor.'
+            ].join(' ')
+        },
+        yanchor: {
+            valType: 'string',
+            role: 'info',
+            dflt: 'auto',
+            editType: 'none',
+            description: [
+                'Sets the plot\'s title y anchor.'
+            ].join(' ')
+        },
+        xref: {
+            valType: 'string',
+            role: 'info',
+            dflt: 'paper',
+            editType: 'none',
+            description: [
+                'Sets the plot\'s title x reference.'
+            ].join(' ')
+        },
+        yref: {
+            valType: 'string',
+            role: 'info',
+            dflt: 'paper',
+            editType: 'none',
+            description: [
+                'Sets the plot\'s title y reference.'
             ].join(' ')
         },
         font: fontAttrs({
             editType: 'layoutstyle',
             description: 'Sets the title font.'
         }),
+        xpad: {
+            valType: 'number',
+            role: 'info',
+            min: 0,
+            dflt: 0,
+            editType: 'calc',
+            description: [
+                'Sets the amount of x padding (in px)',
+                'between the plotting area and the title'
+            ].join(' ')
+        },
+        ypad: {
+            valType: 'number',
+            role: 'info',
+            min: 0,
+            dflt: 0,
+            editType: 'calc',
+            description: [
+                'Sets the amount of y padding (in px)',
+                'between the plotting area and the title'
+            ].join(' ')
+        },
         editType: 'none'
     },
     autosize: {
